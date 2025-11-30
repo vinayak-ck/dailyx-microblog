@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %}Sign Up – DailyX{% endblock %}
+
+{% block content %}
+
+<main class="auth-page">
+  <section class="card auth-card">
+
+    <h1>Create your account</h1>
+
+    <form method="POST">
+      {% csrf_token %}
+      
+      {{ form.username.label_tag }}  
+      {{ form.username }}
+      {{ form.username.errors }}
+
+      {{ form.email.label_tag }}
+      {{ form.email }}
+      {{ form.email.errors }}
+
+      {{ form.password1.label_tag }}
+      {{ form.password1 }}
+      {{ form.password1.errors }}
+
+      {{ form.password2.label_tag }}
+      {{ form.password2 }}
+      {{ form.password2.errors }}
+
+      <button class="btn primary" type="submit">Create Account</button>
+    </form>
+
+
+    <p class="auth-alt">
+      Already have an account?
+      <a href="{% url 'login' %}">Log in</a>
+    </p>
+
+  </section>
+</main>
+
+{% endblock %}

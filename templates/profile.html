@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+{% block title %}Profile – DailyX{% endblock %}
+
+{% block content %}
+
+<main class="layout profile-layout">
+
+  <section class="main-column">
+
+    <!-- PROFILE HEADER -->
+    <section class="card profile-header">
+
+      <div class="avatar-placeholder">
+        {{ request.user.username|first|upper }}
+      </div>
+
+      <div>
+        <!-- Display name -->
+        <h1 class="profile-name">
+          {{ profile.display_name|default:request.user.username }}
+        </h1>
+
+        <p class="profile-username">@{{ request.user.username }}</p>
+
+        <!-- FOLLOW / UNFOLLOW only when viewing someone else -->
+        {% if request.user != profile.user %}
+          <form action="{% url 'toggle_follow' profile.user.id %}" method="POST">
+              {% csrf_token %}
+
+              {% if is_following %}
+                  <button class="btn primary" type="submit">Unfollow</button>
+              {% else %}
+                  <button class="btn primary" type="submit">Follow</button>
+              {% endif %}
+          </form>
+        {% endif %}
+
+        <!-- Followers / Following -->
+        <p>
+          <strong>{{ followers_count }}</strong> Followers · 
+          <strong>{{ following_count }}</strong> Following
+        </p>
+
+        <!-- Bio -->
+        <p class="profile-bio">
+          {{ profile.bio|default:"No bio yet." }}
+        </p>
+
+        <div class="profile-meta">
+          <span><strong>{{ request.user.posts.count }}</strong> posts</span>
+        </div>
+
+        <a href="{% url 'edit_profile' %}" class="btn ghost small">Edit profile</a>
+      </div>
+
+    </section>
+
+    <!-- USER POSTS -->
+    <section class="feed">
+      <h2 class="section-title">Your posts</h2>
+
+      {% for post in request.user.posts.all %}
+      <article class="card post">
+
+        <header class="post-header">
+          <div>
+            <h3 class="post-user">{{ request.user.username }}</h3>
+            <span class="post-meta">{{ post.created_at|timesince }} ago</span>
+          </div>
+        </header>
+
+        <p class="post-content">{{ post.content }}</p>
+
+        <footer class="post-footer">
+          <a href="{% url 'post_detail' post.id %}" class="icon-btn">💬</a>
+        </footer>
+
+      </article>
+      {% empty %}
+      <p>You haven't posted anything yet.</p>
+      {% endfor %}
+
+    </section>
+
+  </section>
+
+  <!-- RIGHT SIDEBAR -->
+  <aside class="side-column">
+    <section class="card">
+      <h3>About DailyX</h3>
+      <p>This is a simple micro-blogging app built with Django.</p>
+    </section>
+  </aside>
+
+</main>
+
+{% endblock %}

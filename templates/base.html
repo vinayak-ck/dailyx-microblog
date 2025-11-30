@@ -1,0 +1,62 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{% block title %}DailyX{% endblock %}</title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+
+  <!-- JS -->
+  <script src="{% static 'js/app.js' %}" defer></script>
+</head>
+
+<body>
+
+  <!-- ===================== NAVBAR ===================== -->
+  <header class="top-nav">
+    <div class="nav-brand">
+      <a href="{% url 'landing' %}">DailyX</a>
+    </div>
+
+    <nav class="nav-links">
+      
+      <form action="{% url 'search_users' %}" method="GET" class="search-form">
+        <input type="text" name="q" placeholder="Search users..." class="search-input">
+      </form>
+
+
+      {% if user.is_authenticated %}
+        <a href="{% url 'feed' %}" class="nav-link">Home</a>
+        <a href="{% url 'profile' %}" class="nav-link">Profile</a>
+        <a href="{% url 'create_post' %}" class="nav-link">New Post</a>
+        <a href="{% url 'logout' %}" class="nav-link nav-secondary">Log out</a>
+      {% else %}
+        <a href="{% url 'login' %}" class="nav-link nav-secondary">Log in</a>
+        <a href="{% url 'signup' %}" class="nav-link nav-primary">Sign up</a>
+      {% endif %}
+
+    </nav>
+  </header>
+  <!-- =================== END NAVBAR ==================== -->
+
+
+
+  <!-- ===================== MAIN CONTENT ===================== -->
+  <main>
+    {% block content %}
+    {% endblock %}
+  </main>
+  <!-- ========================================================== -->
+
+
+
+  <!-- ======================= FOOTER ======================= -->
+  <footer class="footer">
+    <p>© 2025 DailyX. Built by Vinayak ✨</p>
+  </footer>
+
+</body>
+</html>

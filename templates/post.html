@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% block title %}Post – DailyX{% endblock %}
+
+{% block content %}
+
+<main class="layout">
+
+  <section class="main-column">
+
+    <article class="card post post-detail">
+
+      <header class="post-header">
+        <div>
+          <h3 class="post-user">{{ post.user.username }}</h3>
+          <span class="post-meta">
+            @{{ post.user.username }} · {{ post.created_at|date:"M d, Y · h:i A" }}
+          </span>
+        </div>
+      </header>
+
+      <p class="post-content large">{{ post.content }}</p>
+
+    </article>
+
+    <!-- COMMENTS -->
+    <section class="card comments-section">
+
+      <h2>Comments</h2>
+
+      {% for comment in comments %}
+      <article class="comment">
+        <h4 class="comment-user">@{{ comment.user.username }}</h4>
+        <p class="comment-text">{{ comment.content }}</p>
+        <span class="comment-meta">{{ comment.created_at|timesince }} ago</span>
+      </article>
+      {% empty %}
+      <p>No comments yet.</p>
+      {% endfor %}
+
+      <!-- Add Comment -->
+      <form class="form comment-form" method="post">
+        {% csrf_token %}
+        {{ comment_form.as_p }}
+
+        <div class="post-actions">
+          <button type="submit" class="btn primary">Reply</button>
+        </div>
+      </form>
+
+    </section>
+
+  </section>
+
+  <aside class="side-column">
+    <section class="card">
+      <h3>Post Info</h3>
+      <p>Posted by <strong>@{{ post.user.username }}</strong></p>
+      <p>{{ post.created_at|date:"M d, Y h:i A" }}</p>
+    </section>
+  </aside>
+
+</main>
+
+{% endblock %}

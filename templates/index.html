@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}DailyX – Share Your Daily Routine{% endblock %}
+
+{% block content %}
+
+<main class="landing">
+  <section class="landing-content">
+    <h1>Share your daily routine with the world.</h1>
+    <p>Post short updates, follow friends, and see what everyone is doing today.</p>
+
+    <div class="landing-actions">
+      <a href="{% url 'signup' %}" class="btn primary">Get Started</a>
+      <a href="{% url 'login' %}" class="btn ghost">Log in</a>
+    </div>
+
+    <p class="landing-note">Built with Django, HTML, CSS & JS.</p>
+  </section>
+</main>
+
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}Log In – DailyX{% endblock %}
+
+{% block content %}
+
+<main class="auth-page">
+  <section class="card auth-card">
+
+    <h1>Log in to DailyX</h1>
+
+    <form class="form" method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit" class="btn primary full-width">Log in</button>
+    </form>
+
+    <p class="auth-alt">
+      New here?
+      <a href="{% url 'signup' %}">Create an account</a>
+    </p>
+
+  </section>
+</main>
+
+{% endblock %}

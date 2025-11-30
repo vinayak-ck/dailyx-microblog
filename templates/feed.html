@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% block title %}Home – DailyX{% endblock %}
+
+{% block content %}
+
+<main class="layout">
+
+  <section class="main-column">
+
+    <!-- Create Post Box -->
+    <section class="card create-post-card">
+      <h2>What's your routine today?</h2>
+
+      <form class="form" method="post">
+        {% csrf_token %}
+        {{ form.content }}
+        <div class="post-actions">
+          <span class="char-count" data-char-count>280</span>
+          <button type="submit" class="btn primary">Post</button>
+        </div>
+      </form>
+    </section>
+
+    <!-- FEED -->
+    <section class="feed">
+
+      {% for post in posts %}
+      <article class="card post">
+
+        <header class="post-header">
+          <div>
+            <h3 class="post-user">{{ post.user.username }}</h3>
+            <span class="post-meta">@{{ post.user.username }} · {{ post.created_at|timesince }} ago</span>
+          </div>
+        </header>
+        
+        <form action="{% url 'toggle_like' post.id %}" method="POST" style="display:inline;">
+          {% csrf_token %}
+          <button class="btn ghost" type="submit">
+            ❤️ {{ post.likes.count }}
+          </button>
+        </form>
+
+        <p class="post-content">{{ post.content }}</p>
+
+        <footer class="post-footer">
+          <a href="{% url 'post_detail' post.id %}" class="icon-btn">💬</a>
+        </footer>
+
+      </article>
+
+      {% empty %}
+      <p>No posts yet. Be the first!</p>
+      {% endfor %}
+
+    </section>
+
+  </section>
+
+  <aside class="side-column">
+    <section class="card">
+      <h3>Tips</h3>
+      <ul class="tips-list">
+        <li>Keep posts short (max 280 characters).</li>
+        <li>Share your daily routines regularly.</li>
+        <li>Follow others (coming soon).</li>
+      </ul>
+    </section>
+  </aside>
+
+</main>
+
+{% endblock %}

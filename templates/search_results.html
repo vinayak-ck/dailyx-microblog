@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block title %}Search – DailyX{% endblock %}
+
+{% block content %}
+
+<main class="layout">
+
+  <section class="main-column">
+
+    <section class="card">
+      <h2>Search results for "{{ query }}"</h2>
+
+      {% if results %}
+        {% for r in results %}
+          <div class="card user-card">
+
+            <p>
+              <strong>{{ r.user.username }}</strong>  
+              <br>
+              <small>{{ r.user.email }}</small>
+            </p>
+
+            <form action="{% url 'toggle_follow' r.user.id %}" method="POST">
+              {% csrf_token %}
+              {% if r.is_following %}
+                <button class="btn primary" type="submit">Unfollow</button>
+              {% else %}
+                <button class="btn primary" type="submit">Follow</button>
+              {% endif %}
+            </form>
+
+          </div>
+        {% endfor %}
+      {% else %}
+        <p>No users found.</p>
+      {% endif %}
+    </section>
+
+  </section>
+
+  <aside class="side-column"></aside>
+
+</main>
+
+{% endblock %}
