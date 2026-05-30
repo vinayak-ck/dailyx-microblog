@@ -74,7 +74,7 @@ dailyx-microblog/
 
 ## 📸 Screenshots
 
-> Add screenshots of your feed and login page here.
+> ![alt text](portfolio1.png)
 
 ---
 
