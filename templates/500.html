@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}Server Error – DailyX{% endblock %}
+
+{% block content %}
+<main class="page-centered" style="text-align:center; padding-top: 4rem;">
+  <p style="font-size: 4rem; margin: 0;">⚡</p>
+  <h1 style="font-size: 2rem; margin: 0.5rem 0;">Something went wrong</h1>
+  <p style="color: var(--text-muted);">We hit a server error. It's been noted — try again in a moment.</p>
+  <a href="{% url 'landing' %}" class="btn primary" style="margin-top: 1rem;">Go home</a>
+</main>
+{% endblock %}

@@ -1,1 +1,1 @@
-web: gunicorn dailyx.wsgi:application
+web: gunicorn dailyx.wsgi:application --workers 2 --threads 2 --timeout 30 --log-level info
