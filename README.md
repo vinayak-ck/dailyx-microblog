@@ -74,7 +74,7 @@ dailyx-microblog/
 
 ## 📸 Screenshots
 
-> ![alt text](portfolio1.png)
+ ![alt text](portfolio1.png)
 
 ---
 
